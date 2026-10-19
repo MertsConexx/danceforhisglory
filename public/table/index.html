@@ -127,7 +127,7 @@ select:focus, input:focus, textarea:focus, button:focus-visible { outline: 2px s
 .countdown.live .now { display: block; }
 
 /* Private details form */
-.ask.private { border-color: var(--line); }
+.ask.private { border-color: var(--line); margin-top: 40px; }
 .lock { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.08em; color: var(--gold); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; margin-bottom: 14px; }
 .lock svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
@@ -233,7 +233,7 @@ footer a { color: var(--gold); }
     <img class="poster" src="poster.jpg" width="714" height="1016" alt="Fundraiser poster: Merton and Chanelle Pheiffer dancing above a gold mirror ball, with the words 'Dancing for George Royal Academy'">
     <div class="eyebrow">George Royal Academy · Fundraiser Evening</div>
     <h1>Funders' Tables</h1>
-    <p class="sub">Who is sitting where at tables 11 and 12. Share your dance and your hopes for the night, send us your private details for catering and tax certificates, then see who you're sitting with.</p>
+    <p class="sub">Who is sitting where at tables 11 and 12. Share your dance and your hopes for the night, see who you're sitting with, and at the bottom send us your private details for catering and tax certificates.</p>
     <div class="rule">✦</div>
   </header>
 
@@ -267,6 +267,19 @@ footer a { color: var(--gold); }
       <span class="status" id="status" role="status" aria-live="polite"></span>
     </div>
   </form>
+
+  <div class="favs" id="favs" hidden>
+    <div class="label">The table's favourite dances</div>
+    <div class="list" id="fav-list"></div>
+  </div>
+
+  <div class="finder">
+    <label for="q">Find a guest</label>
+    <input id="q" type="search" placeholder="Type a name, e.g. Theron" autocomplete="off">
+    <div class="result" id="result" aria-live="polite"></div>
+  </div>
+
+  <main id="tables"></main>
 
   <section class="ask private" id="details" aria-labelledby="details-title">
     <div class="lock"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Private · only Merton &amp; Chanelle see this</div>
@@ -371,19 +384,6 @@ footer a { color: var(--gold); }
       <button type="button" class="linkbtn" id="d-again">Send details for someone else</button>
     </div>
   </section>
-
-  <div class="favs" id="favs" hidden>
-    <div class="label">The table's favourite dances</div>
-    <div class="list" id="fav-list"></div>
-  </div>
-
-  <div class="finder">
-    <label for="q">Find a guest</label>
-    <input id="q" type="search" placeholder="Type a name, e.g. Theron" autocomplete="off">
-    <div class="result" id="result" aria-live="polite"></div>
-  </div>
-
-  <main id="tables"></main>
 
   <footer>Dancing for <a href="https://www.sportsacademygeorge.com/">George Royal Academy</a> · Questions? WhatsApp +27 78 174 0616</footer>
 </div>

@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pheiffer's Table · Dance for His Glory</title>
+<meta name="description" content="Who sits where at the Pheiffer's tables, and what everyone hopes for from the night.">
+<meta property="og:title" content="Welcome to the Pheiffer's Table">
+<meta property="og:description" content="A table full of courageous and fun people. Find your seat and tell us your dance.">
+<meta property="og:image" content="https://danceforhisglory.co.za/table/poster.jpg">
+<meta property="og:url" content="https://danceforhisglory.co.za/table/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#120c06">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Josefin+Sans:wght@400;600&display=swap">
+<style>
+/* Layout: a ballroom evening programme. Gold on deep night; the answer card, then one round-table plan per table beside its guest cards. */
+:root {
+  --night: #120c06;
+  --night-2: #1d140a;
+  --night-3: #2a1d0e;
+  --gold: #e6b65a;
+  --gold-soft: #b8893b;
+  --cream: #f6ead2;
+  --muted: #b9a483;
+  --line: rgba(230, 182, 90, 0.28);
+  --ok: #9fd29a;
+  --err: #f0a08a;
+  --font-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --font-label: "Josefin Sans", "Gill Sans", "Trebuchet MS", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--night);
+  background-image:
+    radial-gradient(ellipse 90% 50% at 50% 0%, rgba(230,182,90,0.18), transparent 70%),
+    radial-gradient(circle at 15% 30%, rgba(230,182,90,0.06), transparent 40%);
+  background-attachment: fixed;
+  color: var(--cream);
+  font-family: var(--font-label);
+  font-size: 15px;
+  line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: env(safe-area-inset-top, 0px) calc(48px + env(safe-area-inset-bottom, 0px));
+}
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+.wrap { max-width: 1040px; margin: 0 auto; }
+
+header { text-align: center; padding-block: 28px; position: relative; }
+#sparkle { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.welcome { position: relative; margin: 0 auto 20px; max-width: 520px; }
+.welcome p { margin: 0; text-wrap: balance; }
+.welcome-title { font-weight: 600; font-size: clamp(24px, 6vw, 34px); line-height: 1.15; color: var(--gold); }
+.welcome-line { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(19px, 4.6vw, 24px); margin-top: 6px !important; }
+.poster {
+  display: block; position: relative; width: 100%; max-width: 440px; height: auto; margin: 0 auto 30px;
+  border-radius: 6px; border: 1px solid var(--line);
+  box-shadow: 0 0 0 6px rgba(230,182,90,0.06), 0 18px 60px rgba(230,182,90,0.22);
+}
+.eyebrow { font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); position: relative; }
+h1 {
+  font-family: var(--font-display); font-weight: 600; font-style: italic;
+  font-size: clamp(40px, 9vw, 72px); line-height: 1; margin: 12px 0 10px;
+  background: linear-gradient(180deg, #fbe3a6 0%, #e6b65a 45%, #a8742a 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--gold);
+  text-wrap: balance; position: relative;
+}
+.sub { color: var(--muted); max-width: 46ch; margin: 0 auto; position: relative; }
+.rule { display: flex; align-items: center; gap: 14px; justify-content: center; margin: 22px auto 0; color: var(--gold-soft); position: relative; }
+.rule::before, .rule::after { content: ""; height: 1px; width: min(120px, 25vw); background: var(--line); }
+
+/* Answer card */
+.ask {
+  max-width: 640px; margin: 4px auto 40px; padding: 24px 22px 22px;
+  border: 1px solid var(--gold-soft); border-radius: 6px;
+  background: linear-gradient(165deg, rgba(230,182,90,0.12), rgba(0,0,0,0) 55%), var(--night-2);
+  box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+}
+.ask h2 { font-family: var(--font-display); font-size: 32px; font-weight: 600; margin: 0; line-height: 1.1; text-wrap: balance; }
+.ask h2 em { color: var(--gold); }
+.ask .intro { color: var(--muted); margin: 6px 0 18px; }
+.field { display: grid; gap: 8px; margin-bottom: 18px; }
+.field > label, .field > .label { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+select, input[type="text"], input[type="search"], input[type="tel"], input[type="date"], textarea {
+  width: 100%; padding: 12px 14px; border-radius: 4px; border: 1px solid var(--line);
+  background: var(--night); color: var(--cream); font: inherit; font-size: 16px;
+}
+textarea { min-height: 92px; resize: vertical; line-height: 1.45; }
+select:focus, input:focus, textarea:focus, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip input { position: absolute; opacity: 0; pointer-events: none; }
+.chip span {
+  display: inline-block; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line);
+  color: var(--cream); cursor: pointer; font-size: 14px; transition: background .15s, color .15s, border-color .15s;
+}
+.chip span:hover { border-color: var(--gold); }
+.chip input:checked + span { background: var(--gold); color: var(--night); border-color: var(--gold); font-weight: 600; }
+.chip input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
+.count { font-size: 12px; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn {
+  appearance: none; border: 0; border-radius: 999px; padding: 13px 26px; cursor: pointer;
+  background: linear-gradient(180deg, #f3cf7f, #d9a442); color: #1b1206; font: 600 15px/1 var(--font-label); letter-spacing: 0.06em;
+}
+.btn:disabled { opacity: 0.6; cursor: wait; }
+.status { font-size: 14px; }
+.status.ok { color: var(--ok); }
+.status.err { color: var(--err); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Countdown */
+.countdown { position: relative; margin: 0 auto 26px; max-width: 560px; }
+.countdown .label { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+.cd { display: flex; justify-content: center; gap: clamp(8px, 3vw, 18px); margin-top: 10px; }
+.cd div { min-width: 0; flex: 1 1 0; max-width: 104px; padding: 12px 4px 10px; border: 1px solid var(--line); border-radius: 4px; background: rgba(29,20,10,0.75); }
+.cd b { display: block; font-family: var(--font-display); font-weight: 600; font-size: clamp(34px, 9vw, 52px); line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums lining-nums; }
+.cd span { display: block; margin-top: 6px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+.countdown .when { margin-top: 10px; font-size: 13px; color: var(--cream); letter-spacing: 0.04em; }
+.countdown.live .cd { display: none; }
+.countdown .now { display: none; font-family: var(--font-display); font-style: italic; font-size: 30px; color: var(--gold); margin-top: 6px; }
+.countdown.live .now { display: block; }
+
+/* Private details form */
+.ask.private { border-color: var(--line); margin-top: 40px; }
+.lock { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.08em; color: var(--gold); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; margin-bottom: 14px; }
+.lock svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.row2 > * { min-width: 0; }
+@media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
+.hint { font-size: 12.5px; color: var(--muted); text-transform: none; letter-spacing: 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.taxbox { border-top: 1px dashed var(--line); padding-top: 18px; margin-top: 4px; }
+.taxbox h3 { font-family: var(--font-display); font-size: 24px; font-weight: 600; margin: 0 0 4px; }
+.taxbox > p { color: var(--muted); margin: 0 0 16px; font-size: 14px; }
+.sent { text-align: center; padding: 10px 0 4px; }
+.sent h3 { font-family: var(--font-display); font-size: 30px; font-weight: 600; color: var(--gold); margin: 0 0 6px; }
+.sent p { color: var(--muted); margin: 0 0 14px; }
+.linkbtn { background: none; border: 0; padding: 0; color: var(--gold); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+/* Favourites */
+.favs { text-align: center; margin: 0 auto 36px; max-width: 760px; }
+.favs .label { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.favs .list { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.fav { border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 14px; }
+.fav b { color: var(--gold); font-variant-numeric: tabular-nums; margin-left: 6px; }
+
+.finder { max-width: 460px; margin: 0 auto 30px; }
+.finder label { display: block; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; text-align: center; }
+.finder input { border-radius: 999px; text-align: center; }
+.result { min-height: 1.6em; text-align: center; margin-top: 10px; color: var(--gold); font-size: 14px; }
+
+section.table {
+  display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 32px; align-items: start;
+  padding-block: 32px; border-top: 1px solid var(--line);
+}
+.plan { text-align: center; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); }
+.plan h2 { font-family: var(--font-display); font-weight: 500; font-size: 34px; margin: 0 0 4px; }
+.plan h2 span { color: var(--gold); font-style: italic; }
+.plan .seats-range { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+.ring { position: relative; width: 260px; max-width: 100%; aspect-ratio: 1; margin: 18px auto 0; }
+.ring .top {
+  position: absolute; inset: 22%; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #3a2a14, #1a1209 70%); border: 1px solid var(--line);
+  display: grid; place-items: center; font-family: var(--font-display); font-size: 42px; color: var(--gold); font-style: italic;
+}
+.seat {
+  position: absolute; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%;
+  border: 1px solid var(--gold-soft); background: var(--night); color: var(--gold);
+  font: 600 12px/1 var(--font-label); font-variant-numeric: tabular-nums; cursor: pointer;
+  display: grid; place-items: center; padding: 0; transition: background .2s, color .2s, transform .2s;
+}
+.seat.done::after { content: ""; position: absolute; top: -2px; right: -2px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); border: 2px solid var(--night); }
+.seat:hover, .seat:focus-visible, .seat.on { background: var(--gold); color: var(--night); transform: scale(1.12); outline: none; }
+.plan .hint { font-size: 12px; color: var(--muted); margin-top: 14px; }
+
+.couples { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.couple {
+  border: 1px solid var(--line); border-radius: 4px; min-width: 0; padding: 16px 18px;
+  background: linear-gradient(160deg, rgba(230,182,90,0.07), rgba(0,0,0,0) 60%), var(--night-2);
+}
+.couple .family { font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: flex; justify-content: space-between; gap: 8px; }
+.couple .family span:last-child { color: var(--muted); letter-spacing: 0.12em; }
+.guest { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: start; padding: 10px 6px; border-radius: 3px; transition: background .25s; }
+.guest + .guest { border-top: 1px dashed var(--line); }
+.guest .no { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--gold-soft); display: grid; place-items: center; font-weight: 600; font-size: 12px; color: var(--gold); font-variant-numeric: tabular-nums; }
+.guest .name { font-family: var(--font-display); font-size: 24px; line-height: 1.1; font-weight: 600; overflow-wrap: anywhere; margin-top: 7px; }
+.guest .dance { display: inline-block; margin-top: 6px; font-size: 12px; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 999px; background: rgba(230,182,90,0.16); color: var(--gold); }
+.guest .hope { font-family: var(--font-display); font-style: italic; font-size: 18px; line-height: 1.35; color: var(--cream); margin: 6px 0 0; overflow-wrap: anywhere; }
+.guest .hope::before { content: "“"; color: var(--gold); }
+.guest .hope::after { content: "”"; color: var(--gold); }
+.guest .waiting { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.guest .edit { background: none; border: 0; padding: 0; margin-top: 6px; color: var(--gold-soft); font: inherit; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.guest .edit:hover { color: var(--gold); }
+.guest.on { background: rgba(230,182,90,0.16); }
+.guest.on .no { background: var(--gold); color: var(--night); }
+.couple.dim { opacity: 0.35; }
+
+footer { text-align: center; color: var(--muted); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; padding-top: 28px; border-top: 1px solid var(--line); }
+footer a { color: var(--gold); }
+
+@media (max-width: 760px) {
+  section.table { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .plan { position: static; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <canvas id="sparkle" aria-hidden="true"></canvas>
+    <div class="countdown" id="countdown" aria-label="Countdown to the gala">
+      <div class="label">The gala starts in</div>
+      <div class="cd" role="timer" aria-live="off">
+        <div><b id="cd-d">19</b><span>Days</span></div>
+        <div><b id="cd-h">00</b><span>Hours</span></div>
+        <div><b id="cd-m">00</b><span>Minutes</span></div>
+        <div><b id="cd-s">00</b><span>Seconds</span></div>
+      </div>
+      <div class="now">Tonight's the night. See you on the floor!</div>
+      <div class="when">Saturday 7 November 2026 · George Civic Centre</div>
+    </div>
+    <div class="welcome">
+      <p class="welcome-title">Welcome to the Pheiffer's Table</p>
+      <p class="welcome-line">A table full of courageous and fun people</p>
+    </div>
+    <img class="poster" src="poster.jpg" width="714" height="1016" alt="Fundraiser poster: Merton and Chanelle Pheiffer dancing above a gold mirror ball, with the words 'Dancing for George Royal Academy'">
+    <div class="eyebrow">George Royal Academy · Fundraiser Evening</div>
+    <h1>Funders' Tables</h1>
+    <p class="sub">Who is sitting where at tables 11 and 12. Share your dance and your hopes for the night, see who you're sitting with, and at the bottom send us your private details for catering and tax certificates.</p>
+    <div class="rule">✦</div>
+  </header>
+
+  <form class="ask" id="ask" novalidate>
+    <h2>If you had to dance, <em>what would it be?</em></h2>
+    <p class="intro">Pick your name, choose a dance and tell the table what you hope for from the night. Everyone at the tables will see your answer.</p>
+
+    <div class="field">
+      <label for="who">Your name</label>
+      <select id="who" required>
+        <option value="">Choose your name…</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <span class="label" id="dance-label">If you had to dance, which style?</span>
+      <div class="chips" id="dances" role="radiogroup" aria-labelledby="dance-label"></div>
+      <input type="text" id="other" maxlength="40" placeholder="Type your dance style" hidden>
+    </div>
+
+    <div class="field">
+      <label for="hope">What do you hope for from the night?</label>
+      <textarea id="hope" maxlength="280" placeholder="e.g. To laugh a lot, meet new people and see the school's food bank fully funded"></textarea>
+      <div class="count" id="count">0 / 280</div>
+    </div>
+
+    <div class="hp" aria-hidden="true"><label for="website">Leave this empty</label><input id="website" type="text" tabindex="-1" autocomplete="off"></div>
+
+    <div class="actions">
+      <button class="btn" id="save" type="submit">Save my answer</button>
+      <span class="status" id="status" role="status" aria-live="polite"></span>
+    </div>
+  </form>
+
+  <div class="favs" id="favs" hidden>
+    <div class="label">The table's favourite dances</div>
+    <div class="list" id="fav-list"></div>
+  </div>
+
+  <div class="finder">
+    <label for="q">Find a guest</label>
+    <input id="q" type="search" placeholder="Type a name, e.g. Theron" autocomplete="off">
+    <div class="result" id="result" aria-live="polite"></div>
+  </div>
+
+  <main id="tables"></main>
+
+  <section class="ask private" id="details" aria-labelledby="details-title">
+    <div class="lock"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Private · only Merton &amp; Chanelle see this</div>
+    <h2 id="details-title">Before the night: <em>your details</em></h2>
+    <p class="intro">Let us know about any dietary needs, and give us what George Royal Academy needs to issue your Section 18A tax certificate. None of this appears on this page.</p>
+
+    <form id="dform" novalidate>
+      <div class="field">
+        <label for="d-who">Your name</label>
+        <select id="d-who" required>
+          <option value="">Choose your name…</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="d-diet">Dietary requirements <span class="hint">Vegetarian, vegan, halaal, kosher, allergies. Leave empty if none.</span></label>
+        <input type="text" id="d-diet" maxlength="300" placeholder="e.g. Vegetarian, no nuts">
+      </div>
+
+      <div class="field">
+        <span class="label" id="d-18a-label">Do you need a Section 18A tax certificate?</span>
+        <div class="seg" role="radiogroup" aria-labelledby="d-18a-label">
+          <label class="chip"><input type="radio" name="d18a" id="d18a-yes" value="yes"><span>Yes please</span></label>
+          <label class="chip"><input type="radio" name="d18a" id="d18a-no" value="no" checked><span>No</span></label>
+        </div>
+      </div>
+
+      <div class="taxbox" id="taxbox" hidden>
+        <h3>Section 18A certificate details</h3>
+        <p>SARS requires these details on the certificate. If you and your partner gave together, one of you fills this in.</p>
+
+        <div class="field">
+          <span class="label" id="d-type-label">The certificate is for</span>
+          <div class="seg" role="radiogroup" aria-labelledby="d-type-label">
+            <label class="chip"><input type="radio" name="dtype" id="dtype-ind" value="individual" checked><span>Me personally</span></label>
+            <label class="chip"><input type="radio" name="dtype" id="dtype-co" value="company"><span>A company or trust</span></label>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="d-name" id="d-name-label">Full name (as registered with SARS)</label>
+            <input type="text" id="d-name" maxlength="160" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="d-id" id="d-id-label">SA ID number</label>
+            <input type="text" id="d-id" maxlength="40" inputmode="numeric" placeholder="13 digits">
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="d-tax">Income tax reference number</label>
+            <input type="text" id="d-tax" maxlength="14" inputmode="numeric" placeholder="10 digits">
+          </div>
+          <div class="field">
+            <label for="d-email">Email for the certificate</label>
+            <input type="text" id="d-email" maxlength="160" inputmode="email" autocomplete="email" placeholder="name@company.co.za">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="d-addr">Physical or postal address</label>
+          <textarea id="d-addr" maxlength="400" placeholder="Street, suburb, town, postal code" style="min-height:70px"></textarea>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="d-amount">Amount donated <span class="hint">Optional</span></label>
+            <input type="text" id="d-amount" maxlength="40" inputmode="decimal" placeholder="e.g. R10 000">
+          </div>
+          <div class="field">
+            <label for="d-date">Date of payment <span class="hint">Optional</span></label>
+            <input type="date" id="d-date">
+          </div>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label for="d-phone">WhatsApp number <span class="hint">In case we need to check something</span></label>
+          <input type="tel" id="d-phone" maxlength="30" inputmode="tel" autocomplete="tel" placeholder="082 123 4567">
+        </div>
+        <div class="field">
+          <label for="d-notes">Anything else we should know? <span class="hint">Optional</span></label>
+          <input type="text" id="d-notes" maxlength="600">
+        </div>
+      </div>
+
+      <div class="hp" aria-hidden="true"><label for="d-website">Leave this empty</label><input id="d-website" type="text" tabindex="-1" autocomplete="off"></div>
+
+      <div class="actions">
+        <button class="btn" id="d-save" type="submit">Send my details</button>
+        <span class="status" id="d-status" role="status" aria-live="polite"></span>
+      </div>
+      <p class="hint" style="margin:14px 0 0">Your details are used only for catering and your tax certificate, and are shared only with George Royal Academy.</p>
+    </form>
+
+    <div class="sent" id="dsent" hidden>
+      <h3>Thank you!</h3>
+      <p id="dsent-text">We have your details.</p>
+      <button type="button" class="linkbtn" id="d-again">Send details for someone else</button>
+    </div>
+  </section>
+
+  <footer>Dancing for <a href="https://www.sportsacademygeorge.com/">George Royal Academy</a> · Questions? WhatsApp +27 78 174 0616</footer>
+</div>
+
+<script>
+const API = "/api/table";
+const DANCES = ["Waltz","Foxtrot","Quickstep","Tango","Viennese Waltz","Cha-cha","Rumba","Samba","Jive","Paso Doble","Salsa","Langarm","Sokkie","Swing"];
+
+// Seating list. Add title and company here when you have them; empty fields stay hidden.
+const GUESTS = [
+  [11,101,"Mark","Miller"],[11,102,"Janelle","Miller"],
+  [11,103,"Dale","Cornelsons"],[11,104,"Lerita","Cornelsons"],
+  [11,105,"Johan","Wassermans"],[11,106,"Jenny","Wassermans"],
+  [11,107,"Garth","Le Roux"],[11,108,"Tina","Le Roux"],
+  [11,109,"Deon","van Heerden"],[11,110,"Corine","van Heerden"],
+  [12,111,"Xander","Boonzaaier"],[12,112,"Alechia","Boonzaaier"],
+  [12,113,"Pieter","Lourens"],[12,114,"Lucinda","Lourens"],
+  [12,115,"Andre","Theron"],[12,116,"Nicke","Theron"],
+  [12,117,"Tyron","Ward"],[12,118,"Carmen","Ward"],
+  [12,119,"Sharon","van As"],[12,120,"Dirkie","van As"]
+].map(([table, seat, name, surname]) => ({ table, seat, name, surname, title: "", company: "" }));
+
+let answers = {};
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const family = s => s + "'s";
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- Form ---------- */
+const who = document.getElementById("who"), other = document.getElementById("other"),
+      hope = document.getElementById("hope"), count = document.getElementById("count"),
+      statusEl = document.getElementById("status"), saveBtn = document.getElementById("save");
+
+[11, 12].forEach(t => {
+  const g = document.createElement("optgroup");
+  g.label = "Table " + t;
+  GUESTS.filter(x => x.table === t).forEach(x => g.append(new Option(`${x.name} ${x.surname} (seat ${x.seat})`, x.seat)));
+  who.append(g);
+});
+
+document.getElementById("dances").innerHTML = [...DANCES, "Other"].map((d, i) =>
+  `<label class="chip"><input type="radio" name="dance" id="dance-${i}" value="${esc(d)}"><span>${esc(d)}</span></label>`).join("");
+
+const selectedDance = () => document.querySelector('input[name="dance"]:checked')?.value || "";
+document.getElementById("dances").addEventListener("change", () => {
+  other.hidden = selectedDance() !== "Other";
+  if (!other.hidden) other.focus();
+});
+hope.addEventListener("input", () => { count.textContent = `${hope.value.length} / 280`; });
+
+function fillForm(seat) {
+  const a = answers[seat];
+  document.querySelectorAll('input[name="dance"]').forEach(r => r.checked = false);
+  other.value = ""; other.hidden = true; hope.value = "";
+  if (a) {
+    if (a.dance) {
+      const known = DANCES.includes(a.dance);
+      const r = document.querySelector(`input[name="dance"][value="${known ? CSS.escape(a.dance) : "Other"}"]`);
+      if (r) r.checked = true;
+      if (!known) { other.hidden = false; other.value = a.dance; }
+    }
+    hope.value = a.hope || "";
+  }
+  count.textContent = `${hope.value.length} / 280`;
+}
+who.addEventListener("change", () => {
+  fillForm(who.value);
+  setStatus(answers[who.value] ? "Your earlier answer is filled in. Change it and save again if you like." : "", "");
+  try { localStorage.setItem("pt-seat", who.value); } catch (e) {}
+});
+
+function setStatus(msg, kind) { statusEl.textContent = msg; statusEl.className = "status" + (kind ? " " + kind : ""); }
+
+document.getElementById("ask").addEventListener("submit", async e => {
+  e.preventDefault();
+  if (!who.value) { setStatus("Please choose your name first.", "err"); who.focus(); return; }
+  const dance = selectedDance();
+  if (dance === "Other" && !other.value.trim()) { setStatus("Please type the dance style you would choose.", "err"); other.focus(); return; }
+  if (!dance && !hope.value.trim()) { setStatus("Please choose a dance or write what you hope for.", "err"); return; }
+  saveBtn.disabled = true; setStatus("Saving…", "");
+  try {
+    const res = await fetch(API, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ seat: Number(who.value), dance, other: other.value, hope: hope.value, website: document.getElementById("website").value })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) throw new Error(data.error || "Your answer could not be saved. Please try again in a moment.");
+    if (data.answers) { answers = data.answers; paintAnswers(); }
+    const g = GUESTS.find(x => x.seat == who.value);
+    setStatus(`Saved. Thank you, ${g.name}!`, "ok");
+    highlight(g.seat, true);
+  } catch (err) {
+    setStatus(err.message || "Your answer could not be saved. Please check your connection and try again.", "err");
+  } finally { saveBtn.disabled = false; }
+});
+
+/* ---------- Tables ---------- */
+function render() {
+  const root = document.getElementById("tables");
+  root.innerHTML = [11, 12].map(t => {
+    const gs = GUESTS.filter(g => g.table === t);
+    const n = gs.length;
+    const seatsHtml = gs.map((g, i) => {
+      const a = (i / n) * 2 * Math.PI - Math.PI / 2;
+      return `<button type="button" class="seat" style="left:${50 + 42 * Math.cos(a)}%;top:${50 + 42 * Math.sin(a)}%" data-seat="${g.seat}" aria-label="Seat ${g.seat}: ${esc(g.name)} ${esc(g.surname)}">${g.seat}</button>`;
+    }).join("");
+    const couples = [];
+    gs.forEach(g => { const last = couples.at(-1); if (last && last[0].surname === g.surname && last.length < 2) last.push(g); else couples.push([g]); });
+    const cards = couples.map(c => `
+      <article class="couple" data-key="${esc(c.map(g => (g.name + " " + g.surname + " " + g.company).toLowerCase()).join(" "))}">
+        <div class="family"><span>The ${esc(family(c[0].surname))}</span><span>Seats ${c.map(g => g.seat).join(" & ")}</span></div>
+        ${c.map(g => `
+          <div class="guest" id="g${g.seat}">
+            <div class="no">${g.seat}</div>
+            <div>
+              <div class="name">${esc(g.name)} ${esc(g.surname)}</div>
+              ${g.title || g.company ? `<div class="waiting">${esc([g.title, g.company].filter(Boolean).join(", "))}</div>` : ""}
+              <div class="answer" data-answer="${g.seat}"></div>
+            </div>
+          </div>`).join("")}
+      </article>`).join("");
+    return `
+      <section class="table" id="table${t}">
+        <div class="plan">
+          <h2>Table <span>${t}</span></h2>
+          <div class="seats-range">Seats ${gs[0].seat} – ${gs[n - 1].seat}</div>
+          <div class="ring"><div class="top">${t}</div>${seatsHtml}</div>
+          <div class="hint">Tap a seat to see who sits there. A gold dot means they've answered.</div>
+        </div>
+        <div class="couples">${cards}</div>
+      </section>`;
+  }).join("");
+}
+
+function paintAnswers() {
+  GUESTS.forEach(g => {
+    const a = answers[g.seat];
+    const box = document.querySelector(`[data-answer="${g.seat}"]`);
+    const seatBtn = document.querySelector(`.seat[data-seat="${g.seat}"]`);
+    const has = a && (a.dance || a.hope);
+    seatBtn?.classList.toggle("done", !!has);
+    if (!box) return;
+    box.innerHTML = has
+      ? `${a.dance ? `<span class="dance">${esc(a.dance)}</span>` : ""}${a.hope ? `<p class="hope">${esc(a.hope)}</p>` : ""}<button type="button" class="edit" data-edit="${g.seat}">Edit</button>`
+      : `<div class="waiting">Hasn't answered yet · <button type="button" class="edit" data-edit="${g.seat}">Add answer</button></div>`;
+  });
+  // Favourite dances
+  const tally = {};
+  Object.values(answers).forEach(a => { if (a && a.dance) tally[a.dance] = (tally[a.dance] || 0) + 1; });
+  const top = Object.entries(tally).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  document.getElementById("favs").hidden = !top.length;
+  document.getElementById("fav-list").innerHTML = top.map(([d, n]) => `<span class="fav">${esc(d)}<b>${n}</b></span>`).join("");
+}
+
+render();
+paintAnswers();
+
+function highlight(seat, scroll) {
+  document.querySelectorAll(".seat.on, .guest.on").forEach(el => el.classList.remove("on"));
+  if (!seat) return;
+  document.querySelector(`.seat[data-seat="${seat}"]`)?.classList.add("on");
+  const g = document.getElementById("g" + seat);
+  if (g) { g.classList.add("on"); if (scroll) g.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" }); }
+}
+document.getElementById("tables").addEventListener("click", e => {
+  const b = e.target.closest(".seat");
+  if (b) { highlight(b.dataset.seat, true); return; }
+  const ed = e.target.closest("[data-edit]");
+  if (ed) {
+    who.value = ed.dataset.edit; who.dispatchEvent(new Event("change"));
+    document.getElementById("ask").scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+  }
+});
+
+/* ---------- Search ---------- */
+const q = document.getElementById("q"), result = document.getElementById("result");
+q.addEventListener("input", () => {
+  const term = q.value.trim().toLowerCase();
+  document.querySelectorAll(".couple").forEach(c => c.classList.toggle("dim", !!term && !c.dataset.key.includes(term)));
+  if (!term) { result.textContent = ""; highlight(null); return; }
+  const hits = GUESTS.filter(g => (g.name + " " + g.surname + " " + g.company).toLowerCase().includes(term));
+  if (!hits.length) { result.textContent = "No guest by that name on these tables."; highlight(null); return; }
+  if (hits.length === 1) { const g = hits[0]; result.textContent = `${g.name} ${g.surname}: Table ${g.table}, Seat ${g.seat}`; highlight(g.seat, false); }
+  else { result.textContent = hits.map(g => `${g.name} ${g.surname} (T${g.table}, Seat ${g.seat})`).join(" · "); highlight(null); }
+});
+
+/* ---------- Countdown ---------- */
+// The gala: Saturday 7 November 2026, 18:00 South African time. Change the time here if needed.
+const EVENT_START = new Date("2026-11-07T18:00:00+02:00");
+(function () {
+  const box = document.getElementById("countdown"), pad = n => String(n).padStart(2, "0");
+  const el = { d: document.getElementById("cd-d"), h: document.getElementById("cd-h"), m: document.getElementById("cd-m"), s: document.getElementById("cd-s") };
+  function tick() {
+    let ms = EVENT_START - Date.now();
+    if (ms <= 0) { box.classList.add("live"); box.querySelector(".label").textContent = "Saturday 7 November"; return; }
+    const d = Math.floor(ms / 864e5); ms -= d * 864e5;
+    const h = Math.floor(ms / 36e5); ms -= h * 36e5;
+    const m = Math.floor(ms / 6e4); ms -= m * 6e4;
+    el.d.textContent = d; el.h.textContent = pad(h); el.m.textContent = pad(m); el.s.textContent = pad(Math.floor(ms / 1000));
+    setTimeout(tick, 1000 - (Date.now() % 1000));
+  }
+  tick();
+})();
+
+/* ---------- Private details ---------- */
+(function () {
+  const $ = id => document.getElementById(id);
+  const dwho = $("d-who"), taxbox = $("taxbox"), form = $("dform"), st = $("d-status"), btn = $("d-save");
+  [11, 12].forEach(t => {
+    const g = document.createElement("optgroup"); g.label = "Table " + t;
+    GUESTS.filter(x => x.table === t).forEach(x => g.append(new Option(`${x.name} ${x.surname} (seat ${x.seat})`, x.seat)));
+    dwho.append(g);
+  });
+  try { const s = localStorage.getItem("pt-seat"); if (s) dwho.value = s; } catch (e) {}
+  who.addEventListener("change", () => { if (!dwho.value) dwho.value = who.value; });
+
+  const needs = () => document.querySelector('input[name="d18a"]:checked')?.value === "yes";
+  const dtype = () => document.querySelector('input[name="dtype"]:checked')?.value || "individual";
+  function applyType() {
+    const co = dtype() === "company";
+    $("d-name-label").textContent = co ? "Registered company or trust name" : "Full name (as registered with SARS)";
+    $("d-id-label").textContent = co ? "Company or trust registration number" : "SA ID number";
+    $("d-id").placeholder = co ? "e.g. 2015/123456/07" : "13 digits";
+    $("d-id").inputMode = co ? "text" : "numeric";
+    $("d-name").autocomplete = co ? "organization" : "name";
+  }
+  document.querySelectorAll('input[name="d18a"]').forEach(r => r.addEventListener("change", () => { taxbox.hidden = !needs(); }));
+  document.querySelectorAll('input[name="dtype"]').forEach(r => r.addEventListener("change", applyType));
+  applyType();
+
+  const say = (m, k) => { st.textContent = m; st.className = "status" + (k ? " " + k : ""); };
+  const digits = v => v.replace(/\D/g, "");
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    if (!dwho.value) { say("Please choose your name first.", "err"); dwho.focus(); return; }
+    const data = {
+      seat: Number(dwho.value), dietary: $("d-diet").value, needs_18a: needs() ? "yes" : "no",
+      donor_type: dtype(), donor_name: $("d-name").value, id_or_reg: $("d-id").value, tax_ref: $("d-tax").value,
+      address: $("d-addr").value, email: $("d-email").value, amount: $("d-amount").value, paid_on: $("d-date").value,
+      phone: $("d-phone").value, notes: $("d-notes").value, website: $("d-website").value
+    };
+    if (data.needs_18a === "yes") {
+      const co = data.donor_type === "company";
+      const checks = [
+        [!data.donor_name.trim(), "d-name", co ? "Please enter the registered company or trust name." : "Please enter your full name."],
+        [!co && digits(data.id_or_reg).length !== 13, "d-id", "A South African ID number has 13 digits."],
+        [co && !data.id_or_reg.trim(), "d-id", "Please enter the registration number."],
+        [digits(data.tax_ref).length !== 10, "d-tax", "The income tax reference number has 10 digits."],
+        [!data.address.trim(), "d-addr", "Please enter an address for the certificate."],
+        [!/.+@.+\..+/.test(data.email.trim()), "d-email", "Please enter the email address the certificate should go to."]
+      ];
+      const bad = checks.find(c => c[0]);
+      if (bad) { say(bad[2], "err"); $(bad[1]).focus(); return; }
+    } else if (!data.dietary.trim() && !data.notes.trim()) {
+      say("Add your dietary requirements, or choose Yes for a tax certificate.", "err"); $("d-diet").focus(); return;
+    }
+    btn.disabled = true; say("Sending…", "");
+    try {
+      const res = await fetch("/api/details", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || !out.ok) throw new Error(out.error || "Your details could not be sent. Please try again in a moment.");
+      const g = GUESTS.find(x => x.seat === data.seat);
+      $("dsent-text").textContent = `Thank you, ${g.name}. We have your details` + (data.needs_18a === "yes" ? " and will arrange your Section 18A certificate." : ".");
+      form.hidden = true; $("dsent").hidden = false; say("", "");
+    } catch (err) {
+      say((err.message || "Your details could not be sent.") + " You can also WhatsApp us on +27 78 174 0616.", "err");
+    } finally { btn.disabled = false; }
+  });
+
+  $("d-again").addEventListener("click", () => {
+    form.reset(); taxbox.hidden = true; applyType(); dwho.value = "";
+    $("dsent").hidden = true; form.hidden = false; dwho.focus();
+  });
+})();
+
+/* ---------- Live updates ---------- */
+async function load() {
+  try {
+    const res = await fetch(API + "?t=" + Date.now(), { cache: "no-store" });
+    const data = await res.json();
+    if (data.ok) {
+      const changed = JSON.stringify(data.answers) !== JSON.stringify(answers);
+      answers = data.answers || {};
+      if (changed) paintAnswers();
+    }
+  } catch (e) { /* keep showing what we have */ }
+}
+load().then(() => {
+  try { const s = localStorage.getItem("pt-seat"); if (s && !who.value) { who.value = s; fillForm(s); } } catch (e) {}
+});
+setInterval(() => { if (!document.hidden) load(); }, 15000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
+
+/* ---------- Gold sparkle behind the header ---------- */
+(function () {
+  const c = document.getElementById("sparkle"), ctx = c.getContext("2d");
+  let dots = [];
+  function size() {
+    const r = c.getBoundingClientRect(), d = devicePixelRatio || 1;
+    c.width = r.width * d; c.height = r.height * d; ctx.setTransform(d, 0, 0, d, 0, 0);
+    dots = Array.from({ length: Math.round(r.width / 12) }, () => ({ x: Math.random() * r.width, y: Math.random() * r.height, r: Math.random() * 1.6 + 0.3, p: Math.random() * 6.28, s: Math.random() * 0.02 + 0.006 }));
+  }
+  function draw() {
+    const r = c.getBoundingClientRect();
+    ctx.clearRect(0, 0, r.width, r.height);
+    dots.forEach(d => { d.p += d.s; ctx.globalAlpha = 0.25 + 0.5 * Math.abs(Math.sin(d.p)); ctx.fillStyle = "#f0c76e"; ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, 6.28); ctx.fill(); });
+    if (!reduced) requestAnimationFrame(draw);
+  }
+  size(); draw(); addEventListener("resize", () => { size(); if (reduced) draw(); });
+})();
+</script>
+</body>
+</html>

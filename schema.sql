@@ -35,3 +35,12 @@ CREATE TABLE IF NOT EXISTS referrals (
   ip             TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_referrals_created ON referrals(created_at);
+
+-- Pheiffer's Table page (/table/): each guest's dance style and hopes for the night.
+-- Created automatically by functions/api/table.js on first use.
+CREATE TABLE IF NOT EXISTS answers (
+  seat    INTEGER PRIMARY KEY,   -- 101 to 120
+  dance   TEXT NOT NULL DEFAULT '',
+  hope    TEXT NOT NULL DEFAULT '',
+  updated TEXT NOT NULL
+);

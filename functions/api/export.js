@@ -1,4 +1,4 @@
-// GET /api/export?token=...&table=bookings|referrals  ->  CSV download
+// GET /api/export?token=...&table=bookings|referrals|guest_details|answers  ->  CSV download
 // Set ADMIN_TOKEN as a secret in Pages. Without it the endpoint stays closed.
 
 const cell = (v) => {
@@ -14,10 +14,17 @@ export async function onRequestGet({ request, env }) {
   }
   if (!env.DB) return new Response("No database bound", { status: 500 });
 
-  const table = url.searchParams.get("table") === "referrals" ? "referrals" : "bookings";
-  const { results } = await env.DB.prepare(
-    `SELECT * FROM ${table} ORDER BY id DESC`
-  ).all();
+  const allowed = ["bookings", "referrals", "guest_details", "answers"];
+  const asked = url.searchParams.get("table");
+  const table = allowed.includes(asked) ? asked : "bookings";
+  let results;
+  try {
+    ({ results } = await env.DB.prepare(
+      table === "answers" ? "SELECT * FROM answers ORDER BY seat" : `SELECT * FROM ${table} ORDER BY id DESC`
+    ).all());
+  } catch {
+    return new Response("No rows yet\n", { status: 200 });
+  }
 
   if (!results.length) return new Response("No rows yet\n", { status: 200 });
 

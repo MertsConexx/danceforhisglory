@@ -7,7 +7,9 @@
 <meta name="description" content="Who sits where at the Pheiffer's tables, and what everyone hopes for from the night.">
 <meta property="og:title" content="Welcome to the Pheiffer's Table">
 <meta property="og:description" content="A table full of courageous and fun people. Find your seat and tell us your dance.">
-<meta property="og:image" content="poster.jpg">
+<meta property="og:image" content="https://danceforhisglory.co.za/table/poster.jpg">
+<meta property="og:url" content="https://danceforhisglory.co.za/table/">
+<meta property="og:type" content="website">
 <meta name="theme-color" content="#120c06">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -85,7 +87,7 @@ h1 {
 .ask .intro { color: var(--muted); margin: 6px 0 18px; }
 .field { display: grid; gap: 8px; margin-bottom: 18px; }
 .field > label, .field > .label { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
-select, input[type="text"], input[type="search"], textarea {
+select, input[type="text"], input[type="search"], input[type="tel"], input[type="date"], textarea {
   width: 100%; padding: 12px 14px; border-radius: 4px; border: 1px solid var(--line);
   background: var(--night); color: var(--cream); font: inherit; font-size: 16px;
 }
@@ -111,6 +113,35 @@ select:focus, input:focus, textarea:focus, button:focus-visible { outline: 2px s
 .status.ok { color: var(--ok); }
 .status.err { color: var(--err); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Countdown */
+.countdown { position: relative; margin: 0 auto 26px; max-width: 560px; }
+.countdown .label { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+.cd { display: flex; justify-content: center; gap: clamp(8px, 3vw, 18px); margin-top: 10px; }
+.cd div { min-width: 0; flex: 1 1 0; max-width: 104px; padding: 12px 4px 10px; border: 1px solid var(--line); border-radius: 4px; background: rgba(29,20,10,0.75); }
+.cd b { display: block; font-family: var(--font-display); font-weight: 600; font-size: clamp(34px, 9vw, 52px); line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums lining-nums; }
+.cd span { display: block; margin-top: 6px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+.countdown .when { margin-top: 10px; font-size: 13px; color: var(--cream); letter-spacing: 0.04em; }
+.countdown.live .cd { display: none; }
+.countdown .now { display: none; font-family: var(--font-display); font-style: italic; font-size: 30px; color: var(--gold); margin-top: 6px; }
+.countdown.live .now { display: block; }
+
+/* Private details form */
+.ask.private { border-color: var(--line); }
+.lock { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.08em; color: var(--gold); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; margin-bottom: 14px; }
+.lock svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.row2 > * { min-width: 0; }
+@media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
+.hint { font-size: 12.5px; color: var(--muted); text-transform: none; letter-spacing: 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.taxbox { border-top: 1px dashed var(--line); padding-top: 18px; margin-top: 4px; }
+.taxbox h3 { font-family: var(--font-display); font-size: 24px; font-weight: 600; margin: 0 0 4px; }
+.taxbox > p { color: var(--muted); margin: 0 0 16px; font-size: 14px; }
+.sent { text-align: center; padding: 10px 0 4px; }
+.sent h3 { font-family: var(--font-display); font-size: 30px; font-weight: 600; color: var(--gold); margin: 0 0 6px; }
+.sent p { color: var(--muted); margin: 0 0 14px; }
+.linkbtn { background: none; border: 0; padding: 0; color: var(--gold); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 
 /* Favourites */
 .favs { text-align: center; margin: 0 auto 36px; max-width: 760px; }
@@ -184,6 +215,17 @@ footer a { color: var(--gold); }
 <div class="wrap">
   <header>
     <canvas id="sparkle" aria-hidden="true"></canvas>
+    <div class="countdown" id="countdown" aria-label="Countdown to the gala">
+      <div class="label">The gala starts in</div>
+      <div class="cd" role="timer" aria-live="off">
+        <div><b id="cd-d">19</b><span>Days</span></div>
+        <div><b id="cd-h">00</b><span>Hours</span></div>
+        <div><b id="cd-m">00</b><span>Minutes</span></div>
+        <div><b id="cd-s">00</b><span>Seconds</span></div>
+      </div>
+      <div class="now">Tonight's the night. See you on the floor!</div>
+      <div class="when">Saturday 7 November 2026 · George Civic Centre</div>
+    </div>
     <div class="welcome">
       <p class="welcome-title">Welcome to the Pheiffer's Table</p>
       <p class="welcome-line">A table full of courageous and fun people</p>
@@ -191,7 +233,7 @@ footer a { color: var(--gold); }
     <img class="poster" src="poster.jpg" width="714" height="1016" alt="Fundraiser poster: Merton and Chanelle Pheiffer dancing above a gold mirror ball, with the words 'Dancing for George Royal Academy'">
     <div class="eyebrow">George Royal Academy · Fundraiser Evening</div>
     <h1>Funders' Tables</h1>
-    <p class="sub">Who is sitting where at tables 11 and 12. Add your own answers below, then see what everyone else is hoping for.</p>
+    <p class="sub">Who is sitting where at tables 11 and 12. Share your dance and your hopes for the night, send us your private details for catering and tax certificates, then see who you're sitting with.</p>
     <div class="rule">✦</div>
   </header>
 
@@ -226,6 +268,110 @@ footer a { color: var(--gold); }
     </div>
   </form>
 
+  <section class="ask private" id="details" aria-labelledby="details-title">
+    <div class="lock"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Private · only Merton &amp; Chanelle see this</div>
+    <h2 id="details-title">Before the night: <em>your details</em></h2>
+    <p class="intro">Let us know about any dietary needs, and give us what George Royal Academy needs to issue your Section 18A tax certificate. None of this appears on this page.</p>
+
+    <form id="dform" novalidate>
+      <div class="field">
+        <label for="d-who">Your name</label>
+        <select id="d-who" required>
+          <option value="">Choose your name…</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="d-diet">Dietary requirements <span class="hint">Vegetarian, vegan, halaal, kosher, allergies. Leave empty if none.</span></label>
+        <input type="text" id="d-diet" maxlength="300" placeholder="e.g. Vegetarian, no nuts">
+      </div>
+
+      <div class="field">
+        <span class="label" id="d-18a-label">Do you need a Section 18A tax certificate?</span>
+        <div class="seg" role="radiogroup" aria-labelledby="d-18a-label">
+          <label class="chip"><input type="radio" name="d18a" id="d18a-yes" value="yes"><span>Yes please</span></label>
+          <label class="chip"><input type="radio" name="d18a" id="d18a-no" value="no" checked><span>No</span></label>
+        </div>
+      </div>
+
+      <div class="taxbox" id="taxbox" hidden>
+        <h3>Section 18A certificate details</h3>
+        <p>SARS requires these details on the certificate. If you and your partner gave together, one of you fills this in.</p>
+
+        <div class="field">
+          <span class="label" id="d-type-label">The certificate is for</span>
+          <div class="seg" role="radiogroup" aria-labelledby="d-type-label">
+            <label class="chip"><input type="radio" name="dtype" id="dtype-ind" value="individual" checked><span>Me personally</span></label>
+            <label class="chip"><input type="radio" name="dtype" id="dtype-co" value="company"><span>A company or trust</span></label>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="d-name" id="d-name-label">Full name (as registered with SARS)</label>
+            <input type="text" id="d-name" maxlength="160" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="d-id" id="d-id-label">SA ID number</label>
+            <input type="text" id="d-id" maxlength="40" inputmode="numeric" placeholder="13 digits">
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="d-tax">Income tax reference number</label>
+            <input type="text" id="d-tax" maxlength="14" inputmode="numeric" placeholder="10 digits">
+          </div>
+          <div class="field">
+            <label for="d-email">Email for the certificate</label>
+            <input type="text" id="d-email" maxlength="160" inputmode="email" autocomplete="email" placeholder="name@company.co.za">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="d-addr">Physical or postal address</label>
+          <textarea id="d-addr" maxlength="400" placeholder="Street, suburb, town, postal code" style="min-height:70px"></textarea>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="d-amount">Amount donated <span class="hint">Optional</span></label>
+            <input type="text" id="d-amount" maxlength="40" inputmode="decimal" placeholder="e.g. R10 000">
+          </div>
+          <div class="field">
+            <label for="d-date">Date of payment <span class="hint">Optional</span></label>
+            <input type="date" id="d-date">
+          </div>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label for="d-phone">WhatsApp number <span class="hint">In case we need to check something</span></label>
+          <input type="tel" id="d-phone" maxlength="30" inputmode="tel" autocomplete="tel" placeholder="082 123 4567">
+        </div>
+        <div class="field">
+          <label for="d-notes">Anything else we should know? <span class="hint">Optional</span></label>
+          <input type="text" id="d-notes" maxlength="600">
+        </div>
+      </div>
+
+      <div class="hp" aria-hidden="true"><label for="d-website">Leave this empty</label><input id="d-website" type="text" tabindex="-1" autocomplete="off"></div>
+
+      <div class="actions">
+        <button class="btn" id="d-save" type="submit">Send my details</button>
+        <span class="status" id="d-status" role="status" aria-live="polite"></span>
+      </div>
+      <p class="hint" style="margin:14px 0 0">Your details are used only for catering and your tax certificate, and are shared only with George Royal Academy.</p>
+    </form>
+
+    <div class="sent" id="dsent" hidden>
+      <h3>Thank you!</h3>
+      <p id="dsent-text">We have your details.</p>
+      <button type="button" class="linkbtn" id="d-again">Send details for someone else</button>
+    </div>
+  </section>
+
   <div class="favs" id="favs" hidden>
     <div class="label">The table's favourite dances</div>
     <div class="list" id="fav-list"></div>
@@ -239,7 +385,7 @@ footer a { color: var(--gold); }
 
   <main id="tables"></main>
 
-  <footer>Dancing for George Royal Academy · <a href="/">danceforhisglory.co.za</a></footer>
+  <footer>Dancing for <a href="https://www.sportsacademygeorge.com/">George Royal Academy</a> · Questions? WhatsApp +27 78 174 0616</footer>
 </div>
 
 <script>
@@ -422,6 +568,96 @@ q.addEventListener("input", () => {
   if (hits.length === 1) { const g = hits[0]; result.textContent = `${g.name} ${g.surname}: Table ${g.table}, Seat ${g.seat}`; highlight(g.seat, false); }
   else { result.textContent = hits.map(g => `${g.name} ${g.surname} (T${g.table}, Seat ${g.seat})`).join(" · "); highlight(null); }
 });
+
+/* ---------- Countdown ---------- */
+// The gala: Saturday 7 November 2026, 18:00 South African time. Change the time here if needed.
+const EVENT_START = new Date("2026-11-07T18:00:00+02:00");
+(function () {
+  const box = document.getElementById("countdown"), pad = n => String(n).padStart(2, "0");
+  const el = { d: document.getElementById("cd-d"), h: document.getElementById("cd-h"), m: document.getElementById("cd-m"), s: document.getElementById("cd-s") };
+  function tick() {
+    let ms = EVENT_START - Date.now();
+    if (ms <= 0) { box.classList.add("live"); box.querySelector(".label").textContent = "Saturday 7 November"; return; }
+    const d = Math.floor(ms / 864e5); ms -= d * 864e5;
+    const h = Math.floor(ms / 36e5); ms -= h * 36e5;
+    const m = Math.floor(ms / 6e4); ms -= m * 6e4;
+    el.d.textContent = d; el.h.textContent = pad(h); el.m.textContent = pad(m); el.s.textContent = pad(Math.floor(ms / 1000));
+    setTimeout(tick, 1000 - (Date.now() % 1000));
+  }
+  tick();
+})();
+
+/* ---------- Private details ---------- */
+(function () {
+  const $ = id => document.getElementById(id);
+  const dwho = $("d-who"), taxbox = $("taxbox"), form = $("dform"), st = $("d-status"), btn = $("d-save");
+  [11, 12].forEach(t => {
+    const g = document.createElement("optgroup"); g.label = "Table " + t;
+    GUESTS.filter(x => x.table === t).forEach(x => g.append(new Option(`${x.name} ${x.surname} (seat ${x.seat})`, x.seat)));
+    dwho.append(g);
+  });
+  try { const s = localStorage.getItem("pt-seat"); if (s) dwho.value = s; } catch (e) {}
+  who.addEventListener("change", () => { if (!dwho.value) dwho.value = who.value; });
+
+  const needs = () => document.querySelector('input[name="d18a"]:checked')?.value === "yes";
+  const dtype = () => document.querySelector('input[name="dtype"]:checked')?.value || "individual";
+  function applyType() {
+    const co = dtype() === "company";
+    $("d-name-label").textContent = co ? "Registered company or trust name" : "Full name (as registered with SARS)";
+    $("d-id-label").textContent = co ? "Company or trust registration number" : "SA ID number";
+    $("d-id").placeholder = co ? "e.g. 2015/123456/07" : "13 digits";
+    $("d-id").inputMode = co ? "text" : "numeric";
+    $("d-name").autocomplete = co ? "organization" : "name";
+  }
+  document.querySelectorAll('input[name="d18a"]').forEach(r => r.addEventListener("change", () => { taxbox.hidden = !needs(); }));
+  document.querySelectorAll('input[name="dtype"]').forEach(r => r.addEventListener("change", applyType));
+  applyType();
+
+  const say = (m, k) => { st.textContent = m; st.className = "status" + (k ? " " + k : ""); };
+  const digits = v => v.replace(/\D/g, "");
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    if (!dwho.value) { say("Please choose your name first.", "err"); dwho.focus(); return; }
+    const data = {
+      seat: Number(dwho.value), dietary: $("d-diet").value, needs_18a: needs() ? "yes" : "no",
+      donor_type: dtype(), donor_name: $("d-name").value, id_or_reg: $("d-id").value, tax_ref: $("d-tax").value,
+      address: $("d-addr").value, email: $("d-email").value, amount: $("d-amount").value, paid_on: $("d-date").value,
+      phone: $("d-phone").value, notes: $("d-notes").value, website: $("d-website").value
+    };
+    if (data.needs_18a === "yes") {
+      const co = data.donor_type === "company";
+      const checks = [
+        [!data.donor_name.trim(), "d-name", co ? "Please enter the registered company or trust name." : "Please enter your full name."],
+        [!co && digits(data.id_or_reg).length !== 13, "d-id", "A South African ID number has 13 digits."],
+        [co && !data.id_or_reg.trim(), "d-id", "Please enter the registration number."],
+        [digits(data.tax_ref).length !== 10, "d-tax", "The income tax reference number has 10 digits."],
+        [!data.address.trim(), "d-addr", "Please enter an address for the certificate."],
+        [!/.+@.+\..+/.test(data.email.trim()), "d-email", "Please enter the email address the certificate should go to."]
+      ];
+      const bad = checks.find(c => c[0]);
+      if (bad) { say(bad[2], "err"); $(bad[1]).focus(); return; }
+    } else if (!data.dietary.trim() && !data.notes.trim()) {
+      say("Add your dietary requirements, or choose Yes for a tax certificate.", "err"); $("d-diet").focus(); return;
+    }
+    btn.disabled = true; say("Sending…", "");
+    try {
+      const res = await fetch("/api/details", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || !out.ok) throw new Error(out.error || "Your details could not be sent. Please try again in a moment.");
+      const g = GUESTS.find(x => x.seat === data.seat);
+      $("dsent-text").textContent = `Thank you, ${g.name}. We have your details` + (data.needs_18a === "yes" ? " and will arrange your Section 18A certificate." : ".");
+      form.hidden = true; $("dsent").hidden = false; say("", "");
+    } catch (err) {
+      say((err.message || "Your details could not be sent.") + " You can also WhatsApp us on +27 78 174 0616.", "err");
+    } finally { btn.disabled = false; }
+  });
+
+  $("d-again").addEventListener("click", () => {
+    form.reset(); taxbox.hidden = true; applyType(); dwho.value = "";
+    $("dsent").hidden = true; form.hidden = false; dwho.focus();
+  });
+})();
 
 /* ---------- Live updates ---------- */
 async function load() {

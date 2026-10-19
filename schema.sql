@@ -44,3 +44,26 @@ CREATE TABLE IF NOT EXISTS answers (
   hope    TEXT NOT NULL DEFAULT '',
   updated TEXT NOT NULL
 );
+
+-- Private guest details from /table/ (dietary needs, Section 18A certificate info).
+-- Never shown on the page. Read with /api/export?token=...&table=guest_details
+-- Created automatically by functions/api/details.js on first use.
+CREATE TABLE IF NOT EXISTS guest_details (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  created_at TEXT NOT NULL,
+  seat       INTEGER NOT NULL,
+  guest_name TEXT NOT NULL,
+  dietary    TEXT,
+  needs_18a  TEXT NOT NULL,   -- yes | no
+  donor_type TEXT,            -- individual | company
+  donor_name TEXT,
+  id_or_reg  TEXT,            -- SA ID number or company registration number
+  tax_ref    TEXT,            -- 10-digit income tax reference
+  address    TEXT,
+  email      TEXT,
+  phone      TEXT,
+  amount     TEXT,
+  paid_on    TEXT,
+  notes      TEXT,
+  ip         TEXT
+);

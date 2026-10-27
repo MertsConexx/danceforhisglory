@@ -8,7 +8,7 @@ import { json, clean, isBot, normalisePhone, notifyWhatsApp, notifyEmail } from 
 
 const GUESTS = {
   101: "Mark Miller", 102: "Janelle Miller", 103: "Dale Cornelsons", 104: "Lerita Cornelsons",
-  105: "Johan Wassermans", 106: "Jenny Wassermans", 107: "Garth Le Roux", 108: "Tina Le Roux",
+  105: "Minette Loock", 106: "Thinus Loock", 107: "Garth Le Roux", 108: "Tina Le Roux",
   109: "Deon van Heerden", 110: "Corine van Heerden", 111: "Xander Boonzaaier", 112: "Alechia Boonzaaier",
   113: "Pieter Lourens", 114: "Lucinda Lourens", 115: "Andre Theron", 116: "Nicke Theron",
   117: "Tyron Ward", 118: "Carmen Ward", 119: "Sharon van As", 120: "Dirkie van As",
